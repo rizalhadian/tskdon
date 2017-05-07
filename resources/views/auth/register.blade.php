@@ -62,7 +62,7 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
-                        
+
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
@@ -74,6 +74,13 @@
                     </form>
                 </div>
             </div>
+
+            <!-- <div class="panel panel-default">
+                <div class="panel-heading">Map</div>
+                <div class="panel-body">
+                </div>
+            </div> -->
+
         </div>
     </div>
 </div>

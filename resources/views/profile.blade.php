@@ -1,5 +1,5 @@
 @extends('layouts.alte')
-
+asd
 @section('content')
 <br>
 <br>
@@ -53,62 +53,86 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Provinsi</label>
-
+                            <label for="name" class="col-md-4 control-label">Password</label>
                             <div class="col-md-6">
-                                <input id="provinsi" type="text" class="form-control" name="provinsi" value="{{ Auth::user()->name }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
+                              <button  class="btn btn-danger">
+                                  Change Password
+                              </button>
                             </div>
                         </div>
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Kota / Kabupaten</label>
-
-                            <div class="col-md-6">
-                                <input id="kotkabid" type="text" class="form-control" name="kotkabid" value="{{ Auth::user()->kotkabid }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Address</label>
-
-                            <div class="col-md-6">
-                                <input id="address" type="text" class="form-control" name="address" value="{{ Auth::user()->name }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Phone</label>
-
+                            <label for="name" class="col-md-4 control-label">Personal Phone</label>
                             <div class="col-md-6">
                                 <input id="phone" type="text" class="form-control" name="phone" value="{{ Auth::user()->phone }}" required autofocus>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                            <div class="col-md-12 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary ">
                                     Update
                                 </button>
                             </div>
                         </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Toko</div>
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" method="POST" action="profile/update" enctype="multipart/form-data">
+                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-4 control-label">Province</label>
+                            <div class="col-md-6">
+                                <input id="province" type="text" class="form-control" name="province" >
+
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-4 control-label">City</label>
+                            <div class="col-md-6">
+                                <input id="city" type="text" class="form-control" name="city" >
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-4 control-label">Postal Code</label>
+                            <div class="col-md-6">
+                                <input id="postalcode" type="text" class="form-control" name="postalcode" >
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-4 control-label">Address</label>
+                            <div class="col-md-6">
+                                <input id="address" type="text" class="form-control" name="address" >
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                            <label for="name" class="col-md-4 control-label">Phone</label>
+                            <div class="col-md-6">
+                                <input id="phone" type="text" class="form-control" name="phone" value="" required autofocus>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Maps</div>
+                            <div class="panel-body"></div>
+                        </div>
+
+                        <div class="form-group">
+                          <div class="col-md-6 col-md-offset-4">
+                              <button type="submit" class="btn btn-primary">
+                                  Update
+                              </button>
+                          </div>
+
+                        </div>
+
+
+
                     </form>
                 </div>
             </div>

@@ -11,10 +11,10 @@ class ModelToko extends Model
     protected $fillable = array(
       "userid",
       "kotkabid",
+      "postalcode",
       "address",
       "phone",
       "lat",
-      "lng",
-      "foto"
+      "lng"
     );
 }

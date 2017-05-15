@@ -13,7 +13,7 @@
 html,
 body {
   height: 100%;
-  background-color: black;
+  background-color: #f4f4f4;
 }
 .layout-boxed html,
 .layout-boxed body {

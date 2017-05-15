@@ -11,7 +11,13 @@
                 <div class="panel-heading"><b>{{ $nama }}</b></div>
                 <div class="panel-body box-primary">
                   <center>
-                    <img src="{{ asset('public/noimage200.gif') }}" class="img-responsive" alt="Responsive image">
+                    @if( $foto == null)
+                      <img src="{{ asset('public/noimage200.gif') }}" class="img-responsive" alt="Responsive image">
+                      <!-- <img src="{{ asset('public/noimage200.gif') }}"  alt="Responsive image" height="125" width="125"> -->
+                    @else
+                      <img src="{{ asset('public/pict-product/hd') }}/{{ $foto }}" class="img-responsive" alt="Responsive image">
+                    @endif
+
                   </center>
                 </div>
             </div>
@@ -40,7 +46,9 @@
                 <div class="panel-heading">Toko</div>
                 <div class="panel-body box-primary">
                   <center>
-                    <img src="{{ asset('public/noimage200.gif') }}" class="img-circle" alt="Responsive image">
+                    <!-- <img src="{{ asset('public/noimage200.gif') }}" class="img-circle" alt="Responsive image"> -->
+                    <img src="{{ asset('public/pict-profile/hd') }}/{{ $userfoto }}" class="img-circle" alt="Responsive image" height="200" width="200">
+                    <h4>{{ $username }}</h4>
                   </center>
                 </div>
             </div>

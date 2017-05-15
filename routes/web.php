@@ -14,16 +14,32 @@
 Route::get('/', 'Home@index');
 Auth::routes();
 
-Route::get('/profile', 'User@readAsUser');
+Route::get('/profile', 'User@readAsUser')->name('profile');
 Route::post('/profile/update', 'User@update');
+Route::post('/profile/updatetoko', 'User@updatetoko');
 
 
-Route::get('/produk', 'UserProduk@read');
+
+// Route::get('/produk', 'Produk@read');/]
 Route::get('/produk/{produkid}', 'UserProduk@readProduk');
-Route::get('/produktes', 'UserProduk@read');
+
+//
+// Route::get('/shop', 'UserToko@index');
+// Route::get('/shop/{shopid}', 'UserToko@index');
+
+Route::get('/shop/addproduk', 'UserProduk@create');
+Route::post('/shop/addproduk', 'UserProduk@create');
+
+
 
 
 Route::get('/home', 'Home@index');
+
+
+Route::get('/api/getcitiesbyprovince/{province}', function($province){
+  $cities = App\ModelKotkab::where('provinsiid', $province)->get();
+  return response()->json($cities);
+});
 
 // Route::get('user/{post}/{comment}', function($post, $comment){
 //   return 'Post '.$post.' Comment '.$comment;
@@ -49,7 +65,3 @@ Route::group(['prefix' => 'admin'], function () {
     });
 
 });
-
-Route::get('/produk/add', 'ProdukCon@add');
-
-Route::get('/teskerja', 'Home@teskerja');

@@ -3,27 +3,26 @@
 @section('content')
 <br>
 <br>
-@if ($privilege == 0)
-  <!-- Anda Belum Login -->
-@elseif($privilege == 1)
-  <!-- Anda Admin -->
-@elseif ($privilege == 2)
-  <!-- Anda User -->
-@endif
+
 <div class="container">
     <div class="row">
         <div class="col-md-12 ">
             <div class="panel panel-default">
-                <div class="panel-heading">Produk-Produk</div>
+                <div class="panel-heading">Produk Terbaru</div>
                 <div class="panel-body box-primary">
 
                     @foreach ($products as $produk)
-                      <a href = "/tadony/produk/{{ $produk->id }}" >
+                      <a href = "/tskdon/produk/{{ $produk->id }}" >
                       <div class="col-md-2 ">
                           <div class="box box-primary">
                               <div class="panel-heading">
                                 <center>
-                                  <img src="{{ asset('public/noimage200.gif') }}" class="img-responsive" alt="Responsive image">
+                                  @if( $produk->foto == null)
+                                    <img src="{{ asset('public/noimage200.gif') }}"  alt="Responsive image" height="125" width="125">
+                                  @else
+                                    <img src="{{ asset('public/pict-product/hd') }}/{{ $produk->foto }}" alt="Responsive image" height="125" width="125">
+                                  @endif
+
                                 </center>
                               </div>
                               <div class="box-body">

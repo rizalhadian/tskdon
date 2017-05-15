@@ -23,19 +23,11 @@ class Home extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        if(Auth::user()){
-          $data['userid'] = Auth::user()->id;
-          $data['privilege'] = Auth::user()->privilege;
-          $data['nama'] = Auth::user()->name;
-          $data['email'] = Auth::user()->email;
-        }else{
-          $data['privilege'] = 0;
-        }
-
-        $data['products'] = \App\ModelProduk::paginate(15);
-
-
+        $products = \App\ModelProduk::orderBy('id', 'DESC')
+                ->paginate(12);
+        $data['products'] = $products;
         return view('home')->with($data);
+
     }
 
     public function teskerja(){

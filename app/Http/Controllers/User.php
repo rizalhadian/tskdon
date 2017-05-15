@@ -49,11 +49,18 @@ class User extends Controller
       $user = \App\ModelProduk::find($dataPosted['id']);
       $user->get();
 
-
     }
 
     public function readAsUser(){
-      return view('profile');
+      //Get provinces
+      $provinces = \App\ModelProvinsi::all(array('id', 'nama'));
+      $data['provinces'] = $provinces;
+      //Get Toko
+      $toko = \App\ModelToko::where('userid', \Auth::user()->id)->get();
+      $data['toko'] = $toko;
+
+
+      return view('profile')->with($data);
     }
 
     public function update(Request $request){
@@ -64,8 +71,6 @@ class User extends Controller
         $photoName = time().'.'.$request->imagefile->getClientOriginalExtension();
         $user = \App\User::find($data['id']);
         $user->name = $data['name'];
-        $user->kotkabid = $data['kotkabid'];
-        $user->address = $data['address'];
         $user->phone = $data['phone'];
         $user->photo = $photoName;
         $user->save();
@@ -76,13 +81,28 @@ class User extends Controller
 
         $user = \App\User::find($data['id']);
         $user->name = $data['name'];
-        $user->kotkabid = $data['kotkabid'];
-        $user->address = $data['address'];
         $user->phone = $data['phone'];
-        $user->photo = $photoName;
         $user->save();
       }
       return redirect('profile');
+    }
+
+    public function updatetoko(Request $request){
+      $data = $request->all();
+      $userid = \Auth::user()->id;
+      $user = \App\ModelToko::create(array(
+        'userid'=>$userid,
+        'kotkabid'=>$data['kotkabid'],
+        'postalcode'=>$data['postalcode'],
+        'address'=>$data['address'],
+        'phone'=>$data['phone'],
+        'lat'=>$data['lat'],
+        'lng'=>$data['lng']
+      ));
+
+      $user = \App\User::find(\Auth::user()->id);
+      $user->flagtoko = 1;
+      $user->save();
     }
 
     public function delete(){

@@ -13,15 +13,48 @@ class UserProduk extends Controller
     }
 
     //Ambil data produk di ModelProduk
-    public function create(){
-      $produk = \App\ModelProduk::create(array(
-        "petshopid" => 1,
-        "jenisprodukid" => 1,
-        "nama" => "ujicobatambahproduk1",
-        "stock" => 1,
-        "harga" => 1,
-        "deskripsi" => "ujicobatambahproduk1"
-      ));
+    public function create(Request $request){
+
+      if ($request->isMethod('get')){
+        if(Auth::user()->flagtoko == 1){
+          return view('addproduk');
+        }else{
+          return redirect()->route('profile');
+        }
+      }elseif($request->isMethod('post')){
+        $data =  $request->all();
+        // $produk = \App\ModelProduk::create(array(
+        //   "userid" => \Auth::user()->id,
+        //   "nama" => $data->nama,
+        //   "harga" => $data->harga,
+        //   "deskripsi" => $data->deskripsi
+        // ));
+
+        // print_r($data);
+        if ($request->hasFile('imagefile')) {
+          $photoname = time().'.'.$request->imagefile->getClientOriginalExtension();
+
+          $produk = \App\ModelProduk::create(array(
+            "userid" => \Auth::user()->id,
+            "nama" => $data['nama'],
+            "harga" => $data['harga'],
+            "foto" => $photoname,
+            "deskripsi" => $data['deskripsi']
+          ));
+          $request->imagefile->move(public_path('pict-product/hd'), $photoname);
+          // print_r($data);
+        }else{
+
+          $produk = \App\ModelProduk::create(array(
+            "userid" => \Auth::user()->id,
+            "nama" => $data['nama'],
+            "harga" => $data['harga'],
+            "deskripsi" => $data['deskripsi']
+          ));
+          // echo "no foto";
+        }
+        // return redirect('/');
+      }
     }
 
 
@@ -36,20 +69,13 @@ class UserProduk extends Controller
     }
 
     public function readProduk($produkid){
-      if(Auth::user()){
-        // $data['userid'] = Auth::user()->id;
-        // $data['privilege'] = Auth::user()->privilege;
-        // $data['nama'] = Auth::user()->name;
-        // $data['email'] = Auth::user()->email;
-      }else{
-        $data['privilege'] = 0;
-      }
 
       $produk = \App\ModelProduk::find($produkid);
       $produk->get();
 
+      //Data Barang
       $data['id'] = $produk['id'];
-      $data['petshopid'] = $produk['petshopid'];
+      // $data['userid'] = $produk['userid'];
       $data['jenisprodukid'] = $produk['jenisprodukid'];
       $data['nama'] = $produk['nama'];
       $data['stock'] = $produk['stock'];
@@ -57,8 +83,12 @@ class UserProduk extends Controller
       $data['foto'] = $produk['foto'];
       $data['deskripsi'] = $produk['deskripsi'];
 
-      // print_r($produk);
-      // return view('produk');
+      //Data Toko
+      $user = \App\User::find($produk['userid']);
+      $user->get();
+      $data['userfoto'] = $user['photo'];
+      $data['username'] = $user['name'];
+
       return view('produk')->with($data);
     }
 
@@ -83,6 +113,24 @@ class UserProduk extends Controller
       $data = $request->all();
       $produk = \App\ModelProduk::find($data['id']);
       $produk->delete();
+    }
+
+    public function addProduk(Request $request){
+      // $produk = \App\ModelProduk::create(array(
+      //   "petshopid" => 1,
+      //   "jenisprodukid" => 1,
+      //   "nama" => "ujicobatambahproduk1",
+      //   "stock" => 1,
+      //   "harga" => 1,
+      //   "deskripsi" => "ujicobatambahproduk1"
+      // ));
+      if ($request->isMethod('get'))
+      {
+        return view('addproduk');
+      }elseif($request->isMethod('post')){
+
+      }
+
     }
 
 }

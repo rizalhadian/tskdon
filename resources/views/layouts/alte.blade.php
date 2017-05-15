@@ -36,13 +36,22 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 200px;
+      }
+      /* Optional: Makes the sample page fill the window. */
+
+    </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini" >
 
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="/tadony" class="logo">
+    <a href="{{URL::to('/')}}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <!-- <span class="logo-mini"><b>A</b>LT</span> -->
       <!-- logo for regular state and mobile devices -->
@@ -67,18 +76,28 @@
           @if(Auth::user()->privilege == 1 || Auth::user()->privilege == 2)
 
 
-
+          <li >
+            <a href="{{ URL::to('/shop/addproduk') }}">
+              <span class="hidden-xs"><i class="fa fa-plus" aria-hidden="true"></i> Add Product</span>
+            </a>
+          </li>
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{ asset('public/pict-profile/hd') }}/{{ Auth::user()->photo }}" class="img-circle" alt="Responsive image" height="18" width="18">
+              @if(Auth::user()->photo == null)
+                <img src="{{ asset('public/noimage200.gif') }}" class="img-circle" alt="Responsive image" height="18" width="18">
+              @else
+                <img src="{{ asset('public/pict-profile/hd') }}/{{ Auth::user()->photo }}" class="img-circle" alt="Responsive image" height="18" width="18">
+              @endif
               <span class="hidden-xs">{{ Auth::user()->name }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="{{ asset('public/pict-profile/hd') }}/{{ Auth::user()->photo }}" class="img-circle" alt="Responsive image" height="25" width="25">
-                <!-- <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"> -->
-
+                @if(Auth::user()->photo == null)
+                  <img src="{{ asset('public/noimage200.gif') }}" class="img-circle" alt="Responsive image" height="25" width="25">
+                @else
+                  <img src="{{ asset('public/pict-profile/hd') }}/{{ Auth::user()->photo }}" class="img-circle" alt="Responsive image" height="25" width="25">
+                @endif
                 <p>
                   {{ Auth::user()->name }}
                   <small>{{ Auth::user()->name }}</small>
@@ -89,7 +108,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="profile" class="btn btn-default btn-flat">Profile</a>
+                  <a href="{{URL::to('/profile')}}" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -150,7 +169,7 @@
             </ul>
           </li>
           <li >
-            <a href="register">
+            <a href="{{ URL::to('/register') }}">
               <span class="hidden-xs">Register</span>
             </a>
           </li>

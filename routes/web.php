@@ -18,6 +18,9 @@ Route::get('/profile', 'User@readAsUser')->name('profile');
 Route::post('/profile/update', 'User@update');
 Route::post('/profile/updatetoko', 'User@updatetoko');
 
+Route::get('/toko/{tokoid}', 'User@readAsCust')->name('toko');
+
+
 
 
 // Route::get('/produk', 'Produk@read');/]

@@ -43,6 +43,7 @@
           </div>
           <div class="col-md-12">
             <div class="panel panel-default">
+              <a href="http://localhost/tskdon/toko/{{ $userid }}">
                 <div class="panel-heading">Toko</div>
                 <div class="panel-body box-primary">
                   <center>
@@ -51,6 +52,7 @@
                     <h4>{{ $username }}</h4>
                   </center>
                 </div>
+              </a>
             </div>
           </div>
         </div>

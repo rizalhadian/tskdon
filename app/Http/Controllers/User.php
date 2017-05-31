@@ -52,15 +52,36 @@ class User extends Controller
     }
 
     public function readAsUser(){
-      //Get provinces
+      // Get provinces
       $provinces = \App\ModelProvinsi::all(array('id', 'nama'));
       $data['provinces'] = $provinces;
       //Get Toko
       $toko = \App\ModelToko::where('userid', \Auth::user()->id)->get();
       $data['toko'] = $toko;
 
+      // print_r($data['toko']);
+      $data['flagtoko'] = 0;
+
+      foreach ($data['toko'] as $province) {
+        $data['flagtoko'] = 1;
+      }
 
       return view('profile')->with($data);
+    }
+
+    public function readAsCust($tokoid){
+      // Get provinces
+      $provinces = \App\ModelProvinsi::all(array('id', 'nama'));
+      $data['provinces'] = $provinces;
+      //Get Toko
+      $toko = \App\ModelToko::where('userid', $tokoid)->get();
+      $data['toko'] = $toko;
+      //Get User
+      $data['user'] = \App\User::where('id', $data['toko'][0]['userid'])->get();
+      // print_r($user);
+      $data['flagtoko'] = 1;
+
+      return view('toko')->with($data);
     }
 
     public function update(Request $request){

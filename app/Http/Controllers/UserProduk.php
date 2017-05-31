@@ -23,14 +23,8 @@ class UserProduk extends Controller
         }
       }elseif($request->isMethod('post')){
         $data =  $request->all();
-        // $produk = \App\ModelProduk::create(array(
-        //   "userid" => \Auth::user()->id,
-        //   "nama" => $data->nama,
-        //   "harga" => $data->harga,
-        //   "deskripsi" => $data->deskripsi
-        // ));
 
-        // print_r($data);
+        //Kalo ada gambar
         if ($request->hasFile('imagefile')) {
           $photoname = time().'.'.$request->imagefile->getClientOriginalExtension();
 
@@ -43,6 +37,7 @@ class UserProduk extends Controller
           ));
           $request->imagefile->move(public_path('pict-product/hd'), $photoname);
           // print_r($data);
+          //Kalo ga ada gambar
         }else{
 
           $produk = \App\ModelProduk::create(array(
@@ -86,6 +81,7 @@ class UserProduk extends Controller
       //Data Toko
       $user = \App\User::find($produk['userid']);
       $user->get();
+      $data['userid'] = $produk['userid'];
       $data['userfoto'] = $user['photo'];
       $data['username'] = $user['name'];
 

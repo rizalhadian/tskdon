@@ -14,16 +14,21 @@
                 <div class="panel-heading">Profile</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ URL::to('/profile/update') }}" enctype="multipart/form-data">
-                        {{ csrf_field() }}
+                      @foreach ($user as $u)
+
                         <input type="hidden" name="id" value="{{ Auth::user()->id }}">
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                           <div class="panel-heading">
                             <center>
-                              @if(Auth::user()->photo == null)
+
+                                @if($u->photo == null)
                                 <img src="{{ asset('public/noimage200.gif') }}" class="img-thumbnai" alt="Responsive image" name="profileimage" id="profileimage" height="200" width="200">
-                              @else
-                                <img src="{{ asset('public/pict-profile/hd') }}/{{ Auth::user()->photo }}" class="img-thumbnail" alt="Responsive image" name="profileimage" id="profileimage" height="200" width="200">
-                              @endif
+                                @else
+                                <img src="{{ asset('public/pict-profile/hd') }}/{{ $u->photo }}" class="img-thumbnail" alt="Responsive image" name="profileimage" id="profileimage" height="200" width="200">
+                                @endif
+
+
+
                               <input type="file" name="imagefile" id="image" style="display:none" >
                               <!-- <input type="text" value="{{Auth::user()->photo}}"> -->
                             </center>
@@ -35,7 +40,7 @@
                             <label for="name" class="col-md-4 control-label">Name</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ Auth::user()->name }}" required autofocus>
+                                <input id="name" disabled type="text" class="form-control" name="name" value="{{ $u->name }}" required autofocus>
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -49,7 +54,7 @@
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ Auth::user()->email }}" required>
+                                <input id="email" disabled type="email" class="form-control" name="email" value="{{ $u->email }}" required>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -60,28 +65,12 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Password</label>
-                            <div class="col-md-6">
-                              <button  class="btn btn-danger">
-                                  Change Password
-                              </button>
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Personal Phone</label>
                             <div class="col-md-6">
-                                <input id="phone" type="text" class="form-control" name="phone" value="{{ Auth::user()->phone }}" required autofocus>
+                                <input id="phone" disabled type="text" class="form-control" name="phone" value="{{ $u->phone }}" required autofocus>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-md-12 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary ">
-                                    Update
-                                </button>
-                            </div>
-                        </div>
+                        @endforeach
                     </form>
                 </div>
             </div>
@@ -93,27 +82,14 @@
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ URL::to('/profile/updatetoko') }}" enctype="multipart/form-data">
                       {{ csrf_field() }}
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Province</label>
-                            <div class="col-md-6">
-                                <!-- <input id="province" type="text" class="form-control" name="province" > -->
-                                <select name="province" id="province" class="form-control select2" style="width: 100%;">
 
-                                  <option selected="selected" value="0">Please Select</option>
-                                  @foreach ($provinces as $province)
-                                  <option value="{{ $province->id }}">{{ $province->nama }}</option>
-                                  @endforeach
-                                </select>
-                            </div>
-                        </div>
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">City</label>
                             <div class="col-md-6">
                                 <!-- <input id="city" type="text" class="form-control" name="city" > -->
-                                <select name="kotkabid" id="kotkabid" class="form-control select2" style="width: 100%;" disabled>
-                                  <option selected="selected" value="0">Please Select</option>
-                                </select>
+                                <input id="phone" disabled type="text" class="form-control" name="phone" value="{{ $u->phone }}" required autofocus>
+
                             </div>
                         </div>
 
@@ -121,9 +97,9 @@
                             <label for="name" class="col-md-4 control-label">Postal Code</label>
                             <div class="col-md-6">
                               @if($flagtoko == 1)
-                              <input id="postalcode" type="text" class="form-control" name="postalcode" value="{{ $toko[0]->postalcode }}">
+                              <input id="postalcode" disabled type="text" class="form-control" name="postalcode" value="{{ $toko[0]->postalcode }}">
                               @else
-                              <input id="postalcode" type="text" class="form-control" name="postalcode" value="">
+                              <input id="postalcode" disabled type="text" class="form-control" name="postalcode" value="">
                               @endif
                             </div>
                         </div>
@@ -131,9 +107,9 @@
                             <label for="name" class="col-md-4 control-label">Address</label>
                             <div class="col-md-6">
                               @if($flagtoko == 1)
-                              <input id="address" type="text" class="form-control" name="address" value="{{ $toko[0]->address }}">
+                              <input id="address" disabled type="text" class="form-control" name="address" value="{{ $toko[0]->address }}">
                               @else
-                              <input id="address" type="text" class="form-control" name="address" value="">
+                              <input id="address" disabled type="text" class="form-control" name="address" value="">
                               @endif
                             </div>
                         </div>
@@ -141,9 +117,9 @@
                             <label for="name" class="col-md-4 control-label">Phone</label>
                             <div class="col-md-6">
                               @if($flagtoko == 1)
-                              <input id="phone" type="text" class="form-control" name="phone" value="{{ $toko[0]->phone }}" required autofocus>
+                              <input id="phone" disabled type="text" class="form-control" name="phone" value="{{ $toko[0]->phone }}" required autofocus>
                               @else
-                              <input id="phone" type="text" class="form-control" name="phone" value="" required autofocus>
+                              <input id="phone" disabled type="text" class="form-control" name="phone" value="" required autofocus>
                               @endif
                             </div>
                         </div>
